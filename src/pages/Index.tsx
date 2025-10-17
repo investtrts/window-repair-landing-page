@@ -6,6 +6,14 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Icon from "@/components/ui/icon";
+import PriceCalculator from "@/components/PriceCalculator";
+import FloatingCallButton from "@/components/FloatingCallButton";
+import BeforeAfterGallery from "@/components/BeforeAfterGallery";
+import VideoReviews from "@/components/VideoReviews";
+import CountdownTimer from "@/components/CountdownTimer";
+import LiveChat from "@/components/LiveChat";
+import WorkflowSteps from "@/components/WorkflowSteps";
+import Certificates from "@/components/Certificates";
 import { useState, useEffect } from "react";
 
 const Index = () => {
@@ -223,18 +231,8 @@ const Index = () => {
           }}
         />
         
-        <div className="absolute top-24 right-4 z-20 animate-fade-in">
-          <Card className="bg-destructive text-white border-0">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <Icon name="Flame" size={24} />
-                <div>
-                  <p className="text-xs font-semibold">АКЦИЯ! Скидка 20%</p>
-                  <p className="text-xs">До конца: {formatTime(timeLeft)}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+        <div className="absolute top-24 right-4 z-20 animate-fade-in max-w-xs">
+          <CountdownTimer />
         </div>
 
         <div className="relative z-10 container mx-auto px-4 text-center animate-fade-in">
@@ -356,6 +354,17 @@ const Index = () => {
         </div>
       </section>
 
+      <section className="py-12 md:py-20 bg-gradient-to-br from-orange-50 to-white">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="text-center mb-16">
+            <Badge variant="outline" className="mb-4 text-base px-6 py-2">🎯 Как мы работаем</Badge>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-secondary">Схема работы</h2>
+            <p className="text-muted-foreground text-lg">Всего 4 простых шага до идеальных окон</p>
+          </div>
+          <WorkflowSteps />
+        </div>
+      </section>
+
       <section className="py-20 bg-muted/30 relative overflow-hidden">
         <div className="absolute top-0 left-1/4 right-1/4 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
         
@@ -440,7 +449,16 @@ const Index = () => {
             ))}
           </div>
 
-          <div className="max-w-4xl mx-auto text-center mb-12">
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <Badge variant="outline" className="mb-4 text-base px-6 py-2">📸 Реальные результаты</Badge>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-secondary">Наши работы: До и После</h2>
+            <p className="text-muted-foreground text-lg mb-12">
+              Посмотрите, как выглядят окна после профессионального ремонта
+            </p>
+            <BeforeAfterGallery />
+          </div>
+
+          <div className="max-w-4xl mx-auto text-center mb-12 mt-16">
             <h3 className="text-3xl md:text-5xl font-bold text-destructive mb-6">
               Мы любим свою работу и гордимся<br />
               тем, что делаем ее хорошо.
@@ -636,19 +654,8 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="max-w-4xl mx-auto text-center">
-            <Card className="border-4 border-primary/20 bg-white shadow-2xl">
-              <CardContent className="pt-8 pb-8">
-                <h3 className="text-3xl md:text-5xl font-bold text-destructive mb-4">
-                  Ремонт пластиковых окон и дверей<br />
-                  по <span className="underline decoration-4">адекватным ценам</span>
-                </h3>
-                <p className="text-xl md:text-3xl text-secondary font-semibold">
-                  понятная цена БЕЗ НАКРУТОК<br />
-                  вы экономите на ремонте минимум 30-50%
-                </p>
-              </CardContent>
-            </Card>
+          <div className="max-w-5xl mx-auto">
+            <PriceCalculator />
           </div>
         </div>
       </section>
@@ -709,6 +716,28 @@ const Index = () => {
               </form>
             </CardContent>
           </Card>
+        </div>
+      </section>
+
+      <section className="py-12 md:py-20 bg-gradient-to-br from-blue-50 to-white">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-12">
+            <Badge variant="outline" className="mb-4 text-base px-6 py-2">🎥 Видео-отзывы</Badge>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-secondary">Что говорят наши клиенты</h2>
+            <p className="text-muted-foreground text-lg">Реальные люди, реальные истории ремонта</p>
+          </div>
+          <VideoReviews />
+        </div>
+      </section>
+
+      <section className="py-12 md:py-20 bg-gradient-to-br from-blue-50 to-white">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-12">
+            <Badge variant="outline" className="mb-4 text-base px-6 py-2">📜 Документы</Badge>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-secondary">Сертификаты и лицензии</h2>
+            <p className="text-muted-foreground text-lg">Работаем официально, все документы в порядке</p>
+          </div>
+          <Certificates />
         </div>
       </section>
 
@@ -835,6 +864,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      <FloatingCallButton />
+      <LiveChat />
 
       <footer className="bg-secondary text-white py-12">
         <div className="container mx-auto px-4 text-center">

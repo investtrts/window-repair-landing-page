@@ -197,6 +197,21 @@ const Index = () => {
         </DialogContent>
       </Dialog>
 
+      <header className="absolute top-0 left-0 right-0 z-30 py-4">
+        <div className="container mx-auto px-4 flex items-center justify-between">
+          <img 
+            src="https://cdn.poehali.dev/files/01b9a170-845c-485a-9ca0-417c6563b809.png" 
+            alt="MAX" 
+            className="h-16 md:h-20"
+          />
+          <a href="tel:+79505770033" className="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors font-semibold">
+            <Icon name="Phone" size={20} />
+            <span className="hidden sm:inline">+7 (950) 577-00-33</span>
+            <span className="sm:hidden">Позвонить</span>
+          </a>
+        </div>
+      </header>
+
       <section className="relative h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-secondary/5">
         <div 
           className="absolute inset-0 opacity-20"
@@ -207,7 +222,7 @@ const Index = () => {
           }}
         />
         
-        <div className="absolute top-4 right-4 z-20 animate-fade-in">
+        <div className="absolute top-24 right-4 z-20 animate-fade-in">
           <Card className="bg-destructive text-white border-0">
             <CardContent className="p-4">
               <div className="flex items-center gap-2">
@@ -443,7 +458,7 @@ const Index = () => {
                 <CardContent className="pt-6 pb-6">
                   <Icon name="Phone" className="text-primary mx-auto mb-3" size={32} />
                   <h3 className="font-semibold text-secondary mb-2">Телефон</h3>
-                  <a href="tel:+79991234567" className="text-primary hover:underline">+7 (999) 123-45-67</a>
+                  <a href="tel:+79505770033" className="text-primary hover:underline">+7 (950) 577-00-33</a>
                 </CardContent>
               </Card>
               <Card>
@@ -463,9 +478,9 @@ const Index = () => {
           <h3 className="text-2xl font-bold mb-4">Профессиональный ремонт окон в Междуреченске</h3>
           <p className="text-white/80 mb-6">Работаем ежедневно с 8:00 до 20:00</p>
           <div className="flex justify-center gap-4 text-lg mb-4">
-            <a href="tel:+79991234567" className="hover:text-primary transition-colors">
+            <a href="tel:+79505770033" className="hover:text-primary transition-colors">
               <Icon name="Phone" className="inline mr-2" size={20} />
-              +7 (999) 123-45-67
+              +7 (950) 577-00-33
             </a>
           </div>
           <p className="text-sm text-white/60">© 2024 Все права защищены</p>

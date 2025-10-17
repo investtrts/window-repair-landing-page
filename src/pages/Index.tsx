@@ -261,49 +261,49 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-16 bg-white border-y-4 border-yellow-400">
+      <section className="py-8 md:py-16 bg-white border-y-2 md:border-y-4 border-yellow-400">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-6 max-w-7xl mx-auto">
             <Card className="border-2 border-primary/20 hover:border-primary transition-all hover:shadow-xl">
-              <CardContent className="pt-6 pb-6 text-center">
-                <Icon name="Settings" className="text-primary mx-auto mb-3" size={40} />
-                <p className="text-base font-semibold text-secondary leading-tight">
+              <CardContent className="pt-4 pb-4 md:pt-6 md:pb-6 text-center">
+                <Icon name="Settings" className="text-primary mx-auto mb-2 md:mb-3" size={32} />
+                <p className="text-sm md:text-base font-semibold text-secondary leading-tight">
                   Ремонт окон любых производителей и профильных систем
                 </p>
               </CardContent>
             </Card>
 
             <Card className="border-2 border-primary/20 hover:border-primary transition-all hover:shadow-xl">
-              <CardContent className="pt-6 pb-6 text-center">
-                <Icon name="CarFront" className="text-primary mx-auto mb-3" size={40} />
-                <p className="text-base font-semibold text-secondary leading-tight">
+              <CardContent className="pt-4 pb-4 md:pt-6 md:pb-6 text-center">
+                <Icon name="CarFront" className="text-primary mx-auto mb-2 md:mb-3" size={32} />
+                <p className="text-sm md:text-base font-semibold text-secondary leading-tight">
                   Выезд мастера бесплатно
                 </p>
               </CardContent>
             </Card>
 
             <Card className="border-2 border-primary/20 hover:border-primary transition-all hover:shadow-xl">
-              <CardContent className="pt-6 pb-6 text-center">
-                <Icon name="ShieldCheck" className="text-primary mx-auto mb-3" size={40} />
-                <p className="text-base font-semibold text-secondary leading-tight">
+              <CardContent className="pt-4 pb-4 md:pt-6 md:pb-6 text-center">
+                <Icon name="ShieldCheck" className="text-primary mx-auto mb-2 md:mb-3" size={32} />
+                <p className="text-sm md:text-base font-semibold text-secondary leading-tight">
                   Гарантия на все работы от 1 года
                 </p>
               </CardContent>
             </Card>
 
             <Card className="border-2 border-primary/20 hover:border-primary transition-all hover:shadow-xl">
-              <CardContent className="pt-6 pb-6 text-center">
-                <Icon name="Briefcase" className="text-primary mx-auto mb-3" size={40} />
-                <p className="text-base font-semibold text-secondary leading-tight">
+              <CardContent className="pt-4 pb-4 md:pt-6 md:pb-6 text-center">
+                <Icon name="Briefcase" className="text-primary mx-auto mb-2 md:mb-3" size={32} />
+                <p className="text-sm md:text-base font-semibold text-secondary leading-tight">
                   Работаем с физ. и юр. лицами
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-destructive/20 hover:border-destructive transition-all hover:shadow-xl bg-destructive/5">
-              <CardContent className="pt-6 pb-6 text-center">
-                <Icon name="Heart" className="text-destructive mx-auto mb-3" size={40} />
-                <p className="text-base font-semibold text-destructive leading-tight">
+            <Card className="border-2 border-destructive/20 hover:border-destructive transition-all hover:shadow-xl bg-destructive/5 sm:col-span-2 lg:col-span-1">
+              <CardContent className="pt-4 pb-4 md:pt-6 md:pb-6 text-center">
+                <Icon name="Heart" className="text-destructive mx-auto mb-2 md:mb-3" size={32} />
+                <p className="text-sm md:text-base font-semibold text-destructive leading-tight">
                   Пенсионерам, инвалидам, многодетным семьям скидка 10%
                 </p>
               </CardContent>

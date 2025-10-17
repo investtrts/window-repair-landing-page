@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Icon from "@/components/ui/icon";
 import { useState, useEffect } from "react";
 
@@ -668,10 +669,85 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-20 bg-muted/30">
+      <section className="py-12 md:py-20 bg-white">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="text-center mb-12">
+            <Badge variant="outline" className="mb-4 text-base px-6 py-2">💬 Ответы на вопросы</Badge>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-secondary">Часто задаваемые вопросы</h2>
+            <p className="text-muted-foreground text-lg">Всё, что нужно знать о ремонте окон</p>
+          </div>
+
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            <AccordionItem value="item-1" className="border-2 rounded-lg px-6 bg-card">
+              <AccordionTrigger className="text-left text-base md:text-lg font-semibold hover:no-underline">
+                Сколько стоит выезд мастера?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Выезд мастера на диагностику полностью бесплатный! Специалист приедет в удобное для вас время, определит проблему и назван точную стоимость ремонта. Оплата только после выполнения работ.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-2" className="border-2 rounded-lg px-6 bg-card">
+              <AccordionTrigger className="text-left text-base md:text-lg font-semibold hover:no-underline">
+                Как быстро приедет мастер?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                В зависимости от загруженности, мастер может приехать в день обращения или на следующий день. Обычно выезжаем в течение 2-4 часов после заявки. Вы можете выбрать удобное время для визита.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-3" className="border-2 rounded-lg px-6 bg-card">
+              <AccordionTrigger className="text-left text-base md:text-lg font-semibold hover:no-underline">
+                Какая гарантия на выполненные работы?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Мы даём официальную гарантию от 1 года на все виды работ. На некоторые виды услуг гарантия может достигать 2-3 лет. Все условия прописываются в договоре.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-4" className="border-2 rounded-lg px-6 bg-card">
+              <AccordionTrigger className="text-left text-base md:text-lg font-semibold hover:no-underline">
+                Сколько времени занимает ремонт?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Большинство работ выполняется за 15-30 минут прямо на месте. Более сложные случаи (замена стеклопакетов, фурнитуры) могут занять 1-2 часа. Точное время мастер озвучит после диагностики.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-5" className="border-2 rounded-lg px-6 bg-card">
+              <AccordionTrigger className="text-left text-base md:text-lg font-semibold hover:no-underline">
+                Работаете ли вы с юридическими лицами?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Да, мы работаем как с физическими, так и с юридическими лицами. Предоставляем все необходимые документы: договор, акт выполненных работ, счёт-фактуру. Возможна оплата по безналичному расчёту.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-6" className="border-2 rounded-lg px-6 bg-card">
+              <AccordionTrigger className="text-left text-base md:text-lg font-semibold hover:no-underline">
+                Какие окна вы ремонтируете?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Мы ремонтируем пластиковые окна и двери любых производителей и профильных систем: KBE, Rehau, Veka, Proplex и другие. Работаем с любыми типами фурнитуры и механизмов.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-7" className="border-2 rounded-lg px-6 bg-card">
+              <AccordionTrigger className="text-left text-base md:text-lg font-semibold hover:no-underline">
+                Как действуют скидки и акции?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                При заказе сегодня действует скидка 20%. Пенсионерам, инвалидам и многодетным семьям предоставляем дополнительную скидку 10%. Скидки суммируются! Для активации скидки просто укажите это при заявке.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </section>
+
+      <section className="py-12 md:py-20 bg-muted/30">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-secondary">Наш офис</h2>
-          <p className="text-center text-muted-foreground mb-12 text-lg">
+          <h2 className="text-3xl md:text-5xl font-bold text-center mb-4 text-secondary">Наш офис</h2>
+          <p className="text-center text-muted-foreground mb-8 md:mb-12 text-lg">
             <Icon name="MapPin" className="inline mr-2" size={20} />
             г. Междуреченск
           </p>

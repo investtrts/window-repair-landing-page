@@ -343,24 +343,126 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-20 bg-gradient-to-br from-yellow-50 to-background relative overflow-hidden">
+        <div className="absolute top-0 left-1/4 right-1/4 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
+        
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-secondary">Почему выбирают нас</h2>
+          <div className="flex items-center justify-center gap-8 mb-6">
+            <div className="hidden md:block flex-1 h-1 bg-gradient-to-r from-transparent to-yellow-400"></div>
+            <h2 className="text-4xl md:text-6xl font-bold text-center text-secondary uppercase">
+              Наши преимущества
+            </h2>
+            <div className="hidden md:block flex-1 h-1 bg-gradient-to-l from-transparent to-yellow-400"></div>
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {benefits.map((benefit, index) => (
-              <div 
-                key={index} 
-                className="text-center animate-fade-in"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-                <div className="bg-primary/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Icon name={benefit.icon} className="text-primary" size={36} />
+          <p className="text-center text-lg md:text-xl text-muted-foreground mb-12 max-w-4xl mx-auto">
+            Наши клиенты всегда довольны и рекомендуют нас на протяжении 15 лет.<br />
+            Эта заслуга опытных специалистов, налаженного сервиса и отличного оборудования
+          </p>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto mb-12">
+            <div className="text-center animate-fade-in">
+              <div className="relative w-32 h-32 mx-auto mb-4">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-full opacity-10"></div>
+                <div className="absolute inset-2 bg-white rounded-full shadow-lg flex items-center justify-center">
+                  <Icon name="Award" className="text-primary" size={48} />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-secondary">{benefit.title}</h3>
-                <p className="text-muted-foreground">{benefit.description}</p>
               </div>
-            ))}
+              <h3 className="text-2xl md:text-3xl font-bold text-secondary mb-2">Опыт работы</h3>
+              <p className="text-xl md:text-2xl font-semibold text-primary">15 лет</p>
+            </div>
+
+            <div className="text-center animate-fade-in" style={{ animationDelay: '100ms' }}>
+              <div className="relative w-32 h-32 mx-auto mb-4">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-full opacity-10"></div>
+                <div className="absolute inset-2 bg-white rounded-full shadow-lg flex items-center justify-center">
+                  <Icon name="Zap" className="text-primary" size={48} />
+                </div>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-secondary mb-2">Быстро</h3>
+              <p className="text-xl md:text-2xl font-semibold text-primary">за 15-30 мин</p>
+            </div>
+
+            <div className="text-center animate-fade-in" style={{ animationDelay: '200ms' }}>
+              <div className="relative w-32 h-32 mx-auto mb-4">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-full opacity-10"></div>
+                <div className="absolute inset-2 bg-white rounded-full shadow-lg flex items-center justify-center">
+                  <Icon name="CheckCircle2" className="text-primary" size={48} />
+                </div>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-secondary mb-2">Качественные</h3>
+              <p className="text-xl md:text-2xl font-semibold text-primary">материалы</p>
+            </div>
+
+            <div className="text-center animate-fade-in" style={{ animationDelay: '300ms' }}>
+              <div className="relative w-32 h-32 mx-auto mb-4">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-full opacity-10"></div>
+                <div className="absolute inset-2 bg-white rounded-full shadow-lg flex items-center justify-center">
+                  <Icon name="ShieldCheck" className="text-primary" size={48} />
+                </div>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-secondary mb-2">Контроль</h3>
+              <p className="text-xl md:text-2xl font-semibold text-primary">качества</p>
+            </div>
+
+            <div className="text-center animate-fade-in" style={{ animationDelay: '400ms' }}>
+              <div className="relative w-32 h-32 mx-auto mb-4">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-full opacity-10"></div>
+                <div className="absolute inset-2 bg-white rounded-full shadow-lg flex items-center justify-center">
+                  <Icon name="TrendingDown" className="text-primary" size={48} />
+                </div>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-secondary mb-2">Цены выгоднее</h3>
+              <p className="text-xl md:text-2xl font-semibold text-primary">до 30-50%</p>
+            </div>
+
+            <div className="text-center animate-fade-in" style={{ animationDelay: '500ms' }}>
+              <div className="relative w-32 h-32 mx-auto mb-4">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-full opacity-10"></div>
+                <div className="absolute inset-2 bg-white rounded-full shadow-lg flex items-center justify-center">
+                  <Icon name="Shield" className="text-primary" size={48} />
+                </div>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-secondary mb-2">Гарантия</h3>
+              <p className="text-xl md:text-2xl font-semibold text-primary">1 год</p>
+            </div>
+
+            <div className="text-center animate-fade-in" style={{ animationDelay: '600ms' }}>
+              <div className="relative w-32 h-32 mx-auto mb-4">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-full opacity-10"></div>
+                <div className="absolute inset-2 bg-white rounded-full shadow-lg flex items-center justify-center">
+                  <Icon name="Lock" className="text-primary" size={48} />
+                </div>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-secondary mb-2">Фиксируем</h3>
+              <p className="text-xl md:text-2xl font-semibold text-primary">цену!</p>
+            </div>
+
+            <div className="text-center animate-fade-in" style={{ animationDelay: '700ms' }}>
+              <div className="relative w-32 h-32 mx-auto mb-4">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-full opacity-10"></div>
+                <div className="absolute inset-2 bg-white rounded-full shadow-lg flex items-center justify-center">
+                  <Icon name="Percent" className="text-primary" size={48} />
+                </div>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-secondary mb-2">Скидки</h3>
+              <p className="text-xl md:text-2xl font-semibold text-primary">и акции</p>
+            </div>
+          </div>
+
+          <div className="max-w-4xl mx-auto text-center">
+            <Card className="border-4 border-primary/20 bg-white shadow-2xl">
+              <CardContent className="pt-8 pb-8">
+                <h3 className="text-3xl md:text-5xl font-bold text-destructive mb-4">
+                  Ремонт пластиковых окон и дверей<br />
+                  по <span className="underline decoration-4">адекватным ценам</span>
+                </h3>
+                <p className="text-xl md:text-3xl text-secondary font-semibold">
+                  понятная цена БЕЗ НАКРУТОК<br />
+                  вы экономите на ремонте минимум 30-50%
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

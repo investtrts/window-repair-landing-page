@@ -6,8 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Icon from "@/components/ui/icon";
-import PriceCalculator from "@/components/PriceCalculator";
 import FloatingCallButton from "@/components/FloatingCallButton";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import VideoReviews from "@/components/VideoReviews";
 import CountdownTimer from "@/components/CountdownTimer";
@@ -867,6 +867,7 @@ const Index = () => {
 
       <FloatingCallButton />
       <LiveChat />
+      <WhatsAppButton />
 
       <footer className="bg-secondary text-white py-12">
         <div className="container mx-auto px-4 text-center">

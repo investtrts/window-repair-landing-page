@@ -226,6 +226,10 @@ const Index = () => {
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-secondary">
             Профессиональный<br />ремонт окон
           </h1>
+          <p className="text-lg text-primary font-semibold mb-4">
+            <Icon name="MapPin" className="inline mr-2" size={20} />
+            г. Междуреченск
+          </p>
           <p className="text-xl md:text-2xl text-muted-foreground mb-4 max-w-2xl mx-auto">
             Быстро устраним любые неисправности пластиковых и деревянных окон
           </p>
@@ -405,9 +409,58 @@ const Index = () => {
         </div>
       </section>
 
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-secondary">Наш офис</h2>
+          <p className="text-center text-muted-foreground mb-12 text-lg">
+            <Icon name="MapPin" className="inline mr-2" size={20} />
+            г. Междуреченск
+          </p>
+          
+          <div className="max-w-5xl mx-auto">
+            <Card className="overflow-hidden border-2">
+              <CardContent className="p-0">
+                <iframe
+                  src="https://yandex.ru/map-widget/v1/?ll=88.063889%2C53.693889&z=13&l=map&pt=88.063889,53.693889,pm2rdm"
+                  width="100%"
+                  height="450"
+                  frameBorder="0"
+                  allowFullScreen
+                  className="w-full"
+                  title="Карта Междуреченска"
+                />
+              </CardContent>
+            </Card>
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+              <Card>
+                <CardContent className="pt-6 pb-6">
+                  <Icon name="MapPin" className="text-primary mx-auto mb-3" size={32} />
+                  <h3 className="font-semibold text-secondary mb-2">Адрес</h3>
+                  <p className="text-muted-foreground">г. Междуреченск</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6 pb-6">
+                  <Icon name="Phone" className="text-primary mx-auto mb-3" size={32} />
+                  <h3 className="font-semibold text-secondary mb-2">Телефон</h3>
+                  <a href="tel:+79991234567" className="text-primary hover:underline">+7 (999) 123-45-67</a>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6 pb-6">
+                  <Icon name="Clock" className="text-primary mx-auto mb-3" size={32} />
+                  <h3 className="font-semibold text-secondary mb-2">Время работы</h3>
+                  <p className="text-muted-foreground">Ежедневно<br />8:00 — 20:00</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <footer className="bg-secondary text-white py-12">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="text-2xl font-bold mb-4">Профессиональный ремонт окон</h3>
+          <h3 className="text-2xl font-bold mb-4">Профессиональный ремонт окон в Междуреченске</h3>
           <p className="text-white/80 mb-6">Работаем ежедневно с 8:00 до 20:00</p>
           <div className="flex justify-center gap-4 text-lg mb-4">
             <a href="tel:+79991234567" className="hover:text-primary transition-colors">

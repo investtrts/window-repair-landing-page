@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import Icon from "@/components/ui/icon";
 import { useState, useEffect } from "react";
 
@@ -14,12 +15,21 @@ const Index = () => {
   });
   
   const [timeLeft, setTimeLeft] = useState(3600);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupFormData, setPopupFormData] = useState({ name: "", phone: "" });
 
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
     }, 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const popupTimer = setTimeout(() => {
+      setShowPopup(true);
+    }, 30000);
+    return () => clearTimeout(popupTimer);
   }, []);
 
   const formatTime = (seconds: number) => {
@@ -33,6 +43,13 @@ const Index = () => {
     e.preventDefault();
     alert("Спасибо! Мы свяжемся с вами в ближайшее время.");
     setFormData({ name: "", phone: "", message: "" });
+  };
+
+  const handlePopupSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert("Отлично! Ваша скидка 30% активирована. Мы перезвоним в течение 5 минут!");
+    setPopupFormData({ name: "", phone: "" });
+    setShowPopup(false);
   };
 
   const services = [
@@ -131,6 +148,55 @@ const Index = () => {
   ];
 
   return (
+    <div className="min-h-screen">
+      <Dialog open={showPopup} onOpenChange={setShowPopup}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-center">
+              🎁 Специальное предложение!
+            </DialogTitle>
+            <DialogDescription className="text-center">
+              <Badge variant="destructive" className="mb-4 text-base px-4 py-2">
+                🔥 СКИДКА 30% только сейчас!
+              </Badge>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p className="text-center text-muted-foreground">
+              Оставьте заявку прямо сейчас и получите дополнительную скидку 10%!
+            </p>
+            <div className="bg-primary/10 p-4 rounded-lg">
+              <p className="text-center font-semibold text-primary mb-2">Вы экономите до 3000 ₽</p>
+              <p className="text-center text-sm text-muted-foreground">⏰ Предложение действует 15 минут</p>
+            </div>
+            <form onSubmit={handlePopupSubmit} className="space-y-4">
+              <Input
+                placeholder="Ваше имя"
+                value={popupFormData.name}
+                onChange={(e) => setPopupFormData({ ...popupFormData, name: e.target.value })}
+                required
+                className="h-12"
+              />
+              <Input
+                type="tel"
+                placeholder="+7 (999) 123-45-67"
+                value={popupFormData.phone}
+                onChange={(e) => setPopupFormData({ ...popupFormData, phone: e.target.value })}
+                required
+                className="h-12"
+              />
+              <Button type="submit" size="lg" className="w-full">
+                Получить скидку 30%
+                <Icon name="Gift" className="ml-2" size={20} />
+              </Button>
+            </form>
+            <p className="text-xs text-center text-muted-foreground">
+              ✓ Перезвоним за 5 минут  •  ✓ Выезд бесплатно  •  ✓ Гарантия 2 года
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
+
     <div className="min-h-screen">
       <section className="relative h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-secondary/5">
         <div 

@@ -262,6 +262,49 @@ const Index = () => {
         </div>
       </section>
 
+      <section className="py-6 md:py-12 bg-gradient-to-br from-yellow-50 to-white border-y-2 border-yellow-200">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 max-w-5xl mx-auto">
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-1 mb-2">
+                <Icon name="Star" className="text-yellow-500 fill-yellow-500" size={32} />
+                <Icon name="Star" className="text-yellow-500 fill-yellow-500" size={32} />
+                <Icon name="Star" className="text-yellow-500 fill-yellow-500" size={32} />
+                <Icon name="Star" className="text-yellow-500 fill-yellow-500" size={32} />
+                <Icon name="Star" className="text-yellow-500 fill-yellow-500" size={32} />
+              </div>
+              <p className="text-3xl md:text-5xl font-bold text-secondary mb-1">4.9</p>
+              <p className="text-sm md:text-base text-muted-foreground">Рейтинг на Яндекс</p>
+              <p className="text-xs md:text-sm text-muted-foreground">152 отзыва</p>
+            </div>
+
+            <div className="hidden md:block h-20 w-px bg-border"></div>
+
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-1 mb-2">
+                <Icon name="Star" className="text-yellow-500 fill-yellow-500" size={32} />
+                <Icon name="Star" className="text-yellow-500 fill-yellow-500" size={32} />
+                <Icon name="Star" className="text-yellow-500 fill-yellow-500" size={32} />
+                <Icon name="Star" className="text-yellow-500 fill-yellow-500" size={32} />
+                <Icon name="Star" className="text-yellow-500 fill-yellow-500" size={32} />
+              </div>
+              <p className="text-3xl md:text-5xl font-bold text-secondary mb-1">5.0</p>
+              <p className="text-sm md:text-base text-muted-foreground">Рейтинг на 2ГИС</p>
+              <p className="text-xs md:text-sm text-muted-foreground">87 отзывов</p>
+            </div>
+
+            <div className="hidden md:block h-20 w-px bg-border"></div>
+
+            <div className="text-center">
+              <Icon name="Users" className="text-primary mx-auto mb-2" size={48} />
+              <p className="text-3xl md:text-5xl font-bold text-secondary mb-1">2000+</p>
+              <p className="text-sm md:text-base text-muted-foreground">Довольных клиентов</p>
+              <p className="text-xs md:text-sm text-muted-foreground">за 15 лет работы</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-8 md:py-16 bg-white border-y-2 md:border-y-4 border-yellow-400">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-6 max-w-7xl mx-auto">

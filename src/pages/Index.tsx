@@ -197,7 +197,6 @@ const Index = () => {
         </DialogContent>
       </Dialog>
 
-    <div className="min-h-screen">
       <section className="relative h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-secondary/5">
         <div 
           className="absolute inset-0 opacity-20"

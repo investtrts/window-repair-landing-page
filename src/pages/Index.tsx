@@ -653,10 +653,6 @@ const Index = () => {
               <p className="text-xl md:text-2xl font-semibold text-primary">и акции</p>
             </div>
           </div>
-
-          <div className="max-w-5xl mx-auto">
-            <PriceCalculator />
-          </div>
         </div>
       </section>
 

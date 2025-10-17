@@ -261,31 +261,122 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-20 bg-muted/30">
+      <section className="py-20 bg-muted/30 relative overflow-hidden">
+        <div className="absolute top-0 left-1/4 right-1/4 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
+        
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-secondary">Наши услуги</h2>
-          <p className="text-center text-muted-foreground mb-16 text-lg">Решим любую проблему с вашими окнами</p>
+          <div className="flex items-center justify-center gap-8 mb-6">
+            <div className="hidden md:block flex-1 h-1 bg-gradient-to-r from-transparent to-yellow-400"></div>
+            <h2 className="text-4xl md:text-6xl font-bold text-center text-secondary uppercase">
+              Наши услуги
+            </h2>
+            <div className="hidden md:block flex-1 h-1 bg-gradient-to-l from-transparent to-yellow-400"></div>
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <Card 
-                key={index} 
-                className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-scale-in border-2 relative overflow-hidden"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="absolute top-4 right-4">
-                  <Badge variant="destructive">-20%</Badge>
+          <p className="text-center text-lg md:text-xl text-muted-foreground mb-12 max-w-4xl mx-auto">
+            У вас сломалось окно, не закрывается дверь? Зимой из окон дует, а летом не дают покоя комары?<br />
+            Днем некуда скрыться от солнца, а по ночам не дает спать шум с улицы?<br />
+            <span className="font-semibold text-secondary">Тогда Вы попали по адресу! Доверьте нам решить Вашу проблему:</span>
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 max-w-6xl mx-auto">
+            <div className="animate-fade-in">
+              <div 
+                className="h-48 rounded-3xl shadow-xl mb-4 bg-cover bg-center"
+                style={{ backgroundImage: `url('https://cdn.poehali.dev/projects/2f1f8425-5be9-4c47-ae8b-739ef6314b65/files/61083214-4ae5-4ea4-9a68-3aa1b87a8e54.jpg')` }}
+              ></div>
+              <h3 className="text-2xl md:text-3xl font-bold text-center text-secondary">
+                Ремонт пластиковых<br />окон и дверей
+              </h3>
+            </div>
+            
+            <div className="animate-fade-in" style={{ animationDelay: '100ms' }}>
+              <div 
+                className="h-48 rounded-3xl shadow-xl mb-4 bg-cover bg-center"
+                style={{ backgroundImage: `url('https://cdn.poehali.dev/projects/2f1f8425-5be9-4c47-ae8b-739ef6314b65/files/838a1ea3-1e36-4f5e-80be-c4fc73b59698.jpg')` }}
+              ></div>
+              <h3 className="text-2xl md:text-3xl font-bold text-center text-secondary">
+                Утепление<br />окон и дверей
+              </h3>
+            </div>
+            
+            <div className="animate-fade-in" style={{ animationDelay: '200ms' }}>
+              <div 
+                className="h-48 rounded-3xl shadow-xl mb-4 bg-cover bg-center"
+                style={{ backgroundImage: `url('https://cdn.poehali.dev/projects/2f1f8425-5be9-4c47-ae8b-739ef6314b65/files/63a05add-6dd5-4c81-8bce-96da8b0f665c.jpg')` }}
+              ></div>
+              <h3 className="text-2xl md:text-3xl font-bold text-center text-secondary">
+                Замена стекол<br />и стеклопакетов
+              </h3>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 max-w-6xl mx-auto">
+            {[
+              { icon: 'Settings', title: 'Установка\nаксессуаров' },
+              { icon: 'Square', title: 'Установка\nоткосов' },
+              { icon: 'Wrench', title: 'Ремонт и замена\nфурнитуры' }
+            ].map((item, index) => (
+              <div key={index} className="animate-fade-in" style={{ animationDelay: `${300 + index * 100}ms` }}>
+                <div className="h-48 rounded-3xl shadow-xl mb-4 bg-gradient-to-br from-primary/20 to-secondary/10 flex items-center justify-center">
+                  <Icon name={item.icon} className="text-primary" size={80} />
                 </div>
-                <CardContent className="pt-8 pb-8 px-6">
-                  <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    <Icon name={service.icon} className="text-primary" size={32} />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3 text-secondary">{service.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-4">{service.description}</p>
-                  <p className="text-2xl font-bold text-primary">{service.price}</p>
-                </CardContent>
-              </Card>
+                <h3 className="text-2xl md:text-3xl font-bold text-center text-secondary whitespace-pre-line">
+                  {item.title}
+                </h3>
+              </div>
             ))}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-6xl mx-auto">
+            {[
+              { icon: 'Droplets', title: 'Устранение\nконденсата' },
+              { icon: 'Layers', title: 'Установка\nподоконников' },
+              { icon: 'Bug', title: 'Установка\nмоскитных сеток' }
+            ].map((item, index) => (
+              <div key={index} className="animate-fade-in" style={{ animationDelay: `${600 + index * 100}ms` }}>
+                <div className="h-48 rounded-3xl shadow-xl mb-4 bg-gradient-to-br from-primary/20 to-secondary/10 flex items-center justify-center">
+                  <Icon name={item.icon} className="text-primary" size={80} />
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-center text-secondary whitespace-pre-line">
+                  {item.title}
+                </h3>
+              </div>
+            ))}
+          </div>
+
+          <div className="max-w-4xl mx-auto text-center mb-12">
+            <h3 className="text-3xl md:text-5xl font-bold text-destructive mb-6">
+              Мы любим свою работу и гордимся<br />
+              тем, что делаем ее хорошо.
+            </h3>
+            <p className="text-xl md:text-3xl text-secondary font-semibold">
+              Поможем починить окно, устранить сквозняк,<br />
+              скрипа, сделать дом теплее и уютнее
+            </p>
+          </div>
+
+          <div className="max-w-lg mx-auto">
+            <Card className="border-4 border-secondary shadow-2xl">
+              <CardContent className="pt-8 pb-6">
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <Input
+                    type="tel"
+                    placeholder="Введите телефон"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    required
+                    className="h-16 text-center text-2xl font-bold border-2 border-secondary"
+                  />
+                  <Button type="submit" size="lg" className="w-full text-2xl py-8 font-bold">
+                    Вызвать мастера
+                  </Button>
+                  <p className="text-center text-lg font-semibold text-secondary">
+                    Нажмите кнопку, мы перезвоним вам
+                  </p>
+                </form>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

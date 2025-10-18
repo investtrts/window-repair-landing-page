@@ -15,6 +15,7 @@ import LiveChat from "@/components/LiveChat";
 import WorkflowSteps from "@/components/WorkflowSteps";
 import Certificates from "@/components/Certificates";
 import ReviewsSection from "@/components/ReviewsSection";
+import PricingSection from "@/components/PricingSection";
 import { useState, useEffect } from "react";
 
 const Index = () => {
@@ -658,6 +659,8 @@ const Index = () => {
       </section>
 
       <ReviewsSection />
+
+      <PricingSection />
 
       <section id="contact" className="py-20 bg-gradient-to-br from-primary/10 to-secondary/5">
         <div className="container mx-auto px-4 max-w-2xl">

@@ -51,6 +51,7 @@ export default function Admin() {
     localStorage.removeItem('adminAuth');
     setReviews([]);
     setPassword('');
+    navigate('/');
   };
 
   const fetchAllReviews = async () => {
@@ -160,6 +161,10 @@ export default function Admin() {
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-secondary">Управление отзывами</h1>
           <div className="flex gap-2">
+            <Button onClick={() => navigate('/admin/content')} variant="outline">
+              <Icon name="Settings" className="mr-2" size={18} />
+              Контент
+            </Button>
             <Button onClick={() => navigate('/')} variant="outline">
               <Icon name="Home" size={18} className="mr-2" />
               На сайт

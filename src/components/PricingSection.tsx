@@ -2,9 +2,43 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
+import { useState, useEffect } from "react";
+
+const CONTENT_API = 'https://functions.poehali.dev/0834ee0a-3d60-4224-ab11-b39d167e2371';
+
+interface PricingTier {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  icon: string;
+  is_popular: boolean;
+  features: string[];
+}
+
+interface AdditionalService {
+  id: number;
+  name: string;
+  price: string;
+}
 
 const PricingSection = () => {
-  const pricingTiers = [
+  const [pricingTiers, setPricingTiers] = useState<PricingTier[]>([]);
+  const [additionalServices, setAdditionalServices] = useState<AdditionalService[]>([]);
+
+  useEffect(() => {
+    fetch(`${CONTENT_API}?type=pricing`)
+      .then(res => res.json())
+      .then(data => setPricingTiers(data))
+      .catch(() => {});
+
+    fetch(`${CONTENT_API}?type=additional-services`)
+      .then(res => res.json())
+      .then(data => setAdditionalServices(data))
+      .catch(() => {});
+  }, []);
+
+  const staticPricingTiers = [
     {
       name: "Базовый",
       description: "Для простого ремонта",
@@ -52,7 +86,8 @@ const PricingSection = () => {
     }
   ];
 
-  const additionalServices = [
+  const displayPricingTiers = pricingTiers.length > 0 ? pricingTiers : staticPricingTiers;
+  const staticAdditionalServices = [
     { name: "Замена ручки", price: "500" },
     { name: "Замена петель", price: "800" },
     { name: "Замена уплотнителя (1 окно)", price: "600" },
@@ -60,6 +95,7 @@ const PricingSection = () => {
     { name: "Ремонт москитной сетки", price: "300" },
     { name: "Выезд мастера", price: "Бесплатно" }
   ];
+  const displayAdditionalServices = additionalServices.length > 0 ? additionalServices : staticAdditionalServices;
 
   const scrollToForm = () => {
     document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
@@ -82,12 +118,12 @@ const PricingSection = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {pricingTiers.map((tier, index) => (
+          {displayPricingTiers.map((tier, index) => (
             <Card 
-              key={index}
-              className={`relative ${tier.popular ? 'border-primary shadow-xl scale-105' : ''}`}
+              key={tier.id || index}
+              className={`relative ${(tier.is_popular || (tier as any).popular) ? 'border-primary shadow-xl scale-105' : ''}`}
             >
-              {tier.popular && (
+              {(tier.is_popular || (tier as any).popular) && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                   <Badge className="bg-primary text-white px-6 py-1 text-sm">
                     🔥 Хит продаж
@@ -120,7 +156,7 @@ const PricingSection = () => {
                 <Button 
                   onClick={scrollToForm}
                   className="w-full"
-                  variant={tier.popular ? "default" : "outline"}
+                  variant={(tier.is_popular || (tier as any).popular) ? "default" : "outline"}
                   size="lg"
                 >
                   Заказать
@@ -139,14 +175,14 @@ const PricingSection = () => {
           </CardHeader>
           <CardContent>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {additionalServices.map((service, index) => (
+              {displayAdditionalServices.map((service, index) => (
                 <div 
-                  key={index}
+                  key={(service as any).id || index}
                   className="flex items-center justify-between p-4 bg-background rounded-lg"
                 >
                   <span className="font-medium">{service.name}</span>
                   <Badge variant="secondary" className="ml-2">
-                    {service.price === "Бесплатно" ? service.price : `${service.price} ₽`}
+                    {service.price === "Бесплатно" || service.price.includes('Бесплатно') ? 'Бесплатно' : `${service.price.replace(/[^\d]/g, '')} ₽`}
                   </Badge>
                 </div>
               ))}

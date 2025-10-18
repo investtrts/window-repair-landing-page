@@ -1,0 +1,43 @@
+{
+  "tests": [
+    {
+      "name": "Get services",
+      "method": "GET",
+      "path": "/?type=services",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "0": {
+          "icon": "string",
+          "title": "string"
+        }
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Get pricing tiers",
+      "method": "GET",
+      "path": "/?type=pricing",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "0": {
+          "name": "string",
+          "price": "string"
+        }
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Get site settings",
+      "method": "GET",
+      "path": "/?type=settings",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "0": {
+          "setting_key": "string",
+          "setting_value": "string"
+        }
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

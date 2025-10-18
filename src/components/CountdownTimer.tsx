@@ -71,38 +71,38 @@ export default function CountdownTimer() {
             </p>
           </div>
 
-          <div className="flex justify-center gap-2 md:gap-4">
-            <div className={`bg-gradient-to-br from-white to-red-50 rounded-2xl p-3 md:p-6 shadow-xl border-3 border-destructive/30 min-w-[70px] md:min-w-[110px] transform transition-all ${isPulsing ? 'animate-pulse scale-105' : ''}`}>
-              <div className="text-3xl md:text-6xl font-extrabold text-destructive">
+          <div className="flex justify-center gap-1 sm:gap-2 md:gap-4">
+            <div className={`bg-gradient-to-br from-white to-red-50 rounded-xl md:rounded-2xl p-2 sm:p-3 md:p-6 shadow-xl border-2 md:border-3 border-destructive/30 min-w-[60px] sm:min-w-[70px] md:min-w-[110px] transform transition-all ${isPulsing ? 'animate-pulse scale-105' : ''}`}>
+              <div className="text-2xl sm:text-3xl md:text-6xl font-extrabold text-destructive">
                 {formatNumber(hours)}
               </div>
-              <div className="text-xs md:text-sm text-muted-foreground font-bold mt-1 md:mt-2 uppercase tracking-wider">
+              <div className="text-[10px] sm:text-xs md:text-sm text-muted-foreground font-bold mt-0.5 sm:mt-1 md:mt-2 uppercase tracking-wider">
                 часов
               </div>
             </div>
 
-            <div className="flex items-center text-3xl md:text-6xl font-extrabold text-destructive animate-pulse">
+            <div className="flex items-center text-2xl sm:text-3xl md:text-6xl font-extrabold text-destructive animate-pulse">
               :
             </div>
 
-            <div className={`bg-gradient-to-br from-white to-orange-50 rounded-2xl p-3 md:p-6 shadow-xl border-3 border-destructive/30 min-w-[70px] md:min-w-[110px] transform transition-all ${isPulsing ? 'animate-pulse scale-105' : ''}`}>
-              <div className="text-3xl md:text-6xl font-extrabold text-destructive">
+            <div className={`bg-gradient-to-br from-white to-orange-50 rounded-xl md:rounded-2xl p-2 sm:p-3 md:p-6 shadow-xl border-2 md:border-3 border-destructive/30 min-w-[60px] sm:min-w-[70px] md:min-w-[110px] transform transition-all ${isPulsing ? 'animate-pulse scale-105' : ''}`}>
+              <div className="text-2xl sm:text-3xl md:text-6xl font-extrabold text-destructive">
                 {formatNumber(minutes)}
               </div>
-              <div className="text-xs md:text-sm text-muted-foreground font-bold mt-1 md:mt-2 uppercase tracking-wider">
+              <div className="text-[10px] sm:text-xs md:text-sm text-muted-foreground font-bold mt-0.5 sm:mt-1 md:mt-2 uppercase tracking-wider">
                 минут
               </div>
             </div>
 
-            <div className="flex items-center text-3xl md:text-6xl font-extrabold text-destructive animate-pulse">
+            <div className="flex items-center text-2xl sm:text-3xl md:text-6xl font-extrabold text-destructive animate-pulse">
               :
             </div>
 
-            <div className={`bg-gradient-to-br from-white to-yellow-50 rounded-2xl p-3 md:p-6 shadow-xl border-3 border-destructive/30 min-w-[70px] md:min-w-[110px] transform transition-all ${isPulsing ? 'animate-pulse scale-105' : ''}`}>
-              <div className="text-3xl md:text-6xl font-extrabold text-destructive animate-pulse">
+            <div className={`bg-gradient-to-br from-white to-yellow-50 rounded-xl md:rounded-2xl p-2 sm:p-3 md:p-6 shadow-xl border-2 md:border-3 border-destructive/30 min-w-[60px] sm:min-w-[70px] md:min-w-[110px] transform transition-all ${isPulsing ? 'animate-pulse scale-105' : ''}`}>
+              <div className="text-2xl sm:text-3xl md:text-6xl font-extrabold text-destructive animate-pulse">
                 {formatNumber(seconds)}
               </div>
-              <div className="text-xs md:text-sm text-muted-foreground font-bold mt-1 md:mt-2 uppercase tracking-wider">
+              <div className="text-[10px] sm:text-xs md:text-sm text-muted-foreground font-bold mt-0.5 sm:mt-1 md:mt-2 uppercase tracking-wider">
                 секунд
               </div>
             </div>

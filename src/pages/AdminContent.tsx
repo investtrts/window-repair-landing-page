@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import Icon from '@/components/ui/icon';
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +23,10 @@ export default function AdminContent() {
   const [pricingTiers, setPricingTiers] = useState<any[]>([]);
   const [gallery, setGallery] = useState<any[]>([]);
   const [settings, setSettings] = useState<any[]>([]);
+
+  const [editDialog, setEditDialog] = useState(false);
+  const [editType, setEditType] = useState<'service' | 'pricing' | 'gallery'>('service');
+  const [editItem, setEditItem] = useState<any>({});
 
   useEffect(() => {
     const savedAuth = localStorage.getItem('adminContentAuth');
@@ -64,18 +70,24 @@ export default function AdminContent() {
     }
   };
 
-  const handleSaveService = async (service: any) => {
+  const handleSave = async () => {
     try {
-      const method = service.id ? 'PUT' : 'POST';
-      await fetch(`${CONTENT_API}?type=services`, {
+      const method = editItem.id ? 'PUT' : 'POST';
+      const typeMap = { service: 'services', pricing: 'pricing', gallery: 'gallery' };
+      const type = typeMap[editType];
+
+      await fetch(`${CONTENT_API}?type=${type}`, {
         method,
         headers: {
           'Content-Type': 'application/json',
           'X-Admin-Password': ADMIN_PASSWORD
         },
-        body: JSON.stringify(service)
+        body: JSON.stringify(editItem)
       });
+      
       toast({ title: 'Успех', description: 'Сохранено' });
+      setEditDialog(false);
+      setEditItem({});
       fetchAllContent();
     } catch (error) {
       toast({ title: 'Ошибка', description: 'Не удалось сохранить', variant: 'destructive' });
@@ -83,7 +95,7 @@ export default function AdminContent() {
   };
 
   const handleDelete = async (type: string, id: number) => {
-    if (!confirm('Удалить?')) return;
+    if (!confirm('Удалить этот элемент?')) return;
     try {
       await fetch(`${CONTENT_API}?type=${type}&id=${id}`, {
         method: 'DELETE',
@@ -110,6 +122,12 @@ export default function AdminContent() {
     } catch (error) {
       toast({ title: 'Ошибка', variant: 'destructive' });
     }
+  };
+
+  const openEditDialog = (type: 'service' | 'pricing' | 'gallery', item: any = {}) => {
+    setEditType(type);
+    setEditItem(item);
+    setEditDialog(true);
   };
 
   if (!isAuthenticated) {
@@ -163,6 +181,10 @@ export default function AdminContent() {
           </TabsList>
 
           <TabsContent value="services" className="space-y-4">
+            <Button onClick={() => openEditDialog('service')}>
+              <Icon name="Plus" className="mr-2" size={18} />
+              Добавить услугу
+            </Button>
             <div className="grid gap-4">
               {services.map((service) => (
                 <Card key={service.id}>
@@ -176,13 +198,22 @@ export default function AdminContent() {
                         <p className="text-muted-foreground mb-2">{service.description}</p>
                         <p className="text-lg font-semibold text-primary">{service.price}</p>
                       </div>
-                      <Button 
-                        size="sm" 
-                        variant="destructive" 
-                        onClick={() => handleDelete('services', service.id)}
-                      >
-                        <Icon name="Trash2" size={16} />
-                      </Button>
+                      <div className="flex gap-2">
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => openEditDialog('service', service)}
+                        >
+                          <Icon name="Edit" size={16} />
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          variant="destructive" 
+                          onClick={() => handleDelete('services', service.id)}
+                        >
+                          <Icon name="Trash2" size={16} />
+                        </Button>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -191,6 +222,10 @@ export default function AdminContent() {
           </TabsContent>
 
           <TabsContent value="pricing" className="space-y-4">
+            <Button onClick={() => openEditDialog('pricing')}>
+              <Icon name="Plus" className="mr-2" size={18} />
+              Добавить тариф
+            </Button>
             <div className="grid md:grid-cols-3 gap-4">
               {pricingTiers.map((tier) => (
                 <Card key={tier.id} className={tier.is_popular ? 'border-primary' : ''}>
@@ -208,15 +243,24 @@ export default function AdminContent() {
                         </li>
                       ))}
                     </ul>
-                    <Button 
-                      size="sm" 
-                      variant="destructive" 
-                      onClick={() => handleDelete('pricing', tier.id)}
-                      className="w-full"
-                    >
-                      <Icon name="Trash2" size={16} className="mr-2" />
-                      Удалить
-                    </Button>
+                    <div className="flex gap-2">
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={() => openEditDialog('pricing', tier)}
+                        className="flex-1"
+                      >
+                        <Icon name="Edit" size={16} className="mr-2" />
+                        Изменить
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="destructive" 
+                        onClick={() => handleDelete('pricing', tier.id)}
+                      >
+                        <Icon name="Trash2" size={16} />
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -224,21 +268,35 @@ export default function AdminContent() {
           </TabsContent>
 
           <TabsContent value="gallery" className="space-y-4">
+            <Button onClick={() => openEditDialog('gallery')}>
+              <Icon name="Plus" className="mr-2" size={18} />
+              Добавить фото
+            </Button>
             <div className="grid md:grid-cols-3 gap-4">
               {gallery.map((item) => (
                 <Card key={item.id}>
                   <CardContent className="pt-6">
                     <img src={item.url} alt={item.title} className="w-full h-48 object-cover rounded-lg mb-4" />
                     <h3 className="font-semibold mb-2">{item.title}</h3>
-                    <Button 
-                      size="sm" 
-                      variant="destructive" 
-                      onClick={() => handleDelete('gallery', item.id)}
-                      className="w-full"
-                    >
-                      <Icon name="Trash2" size={16} className="mr-2" />
-                      Удалить
-                    </Button>
+                    {item.description && <p className="text-sm text-muted-foreground mb-4">{item.description}</p>}
+                    <div className="flex gap-2">
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={() => openEditDialog('gallery', item)}
+                        className="flex-1"
+                      >
+                        <Icon name="Edit" size={16} className="mr-2" />
+                        Изменить
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="destructive" 
+                        onClick={() => handleDelete('gallery', item.id)}
+                      >
+                        <Icon name="Trash2" size={16} />
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -254,20 +312,35 @@ export default function AdminContent() {
                 {settings.map((setting) => (
                   <div key={setting.setting_key} className="flex items-center gap-4">
                     <div className="flex-1">
-                      <label className="text-sm font-medium mb-2 block">
+                      <Label className="mb-2 block">
                         {setting.description || setting.setting_key}
-                      </label>
-                      <Input
-                        value={setting.setting_value}
-                        onChange={(e) => {
-                          const updated = settings.map(s => 
-                            s.setting_key === setting.setting_key 
-                              ? { ...s, setting_value: e.target.value }
-                              : s
-                          );
-                          setSettings(updated);
-                        }}
-                      />
+                      </Label>
+                      {setting.setting_type === 'textarea' ? (
+                        <Textarea
+                          value={setting.setting_value}
+                          onChange={(e) => {
+                            const updated = settings.map(s => 
+                              s.setting_key === setting.setting_key 
+                                ? { ...s, setting_value: e.target.value }
+                                : s
+                            );
+                            setSettings(updated);
+                          }}
+                          rows={3}
+                        />
+                      ) : (
+                        <Input
+                          value={setting.setting_value}
+                          onChange={(e) => {
+                            const updated = settings.map(s => 
+                              s.setting_key === setting.setting_key 
+                                ? { ...s, setting_value: e.target.value }
+                                : s
+                            );
+                            setSettings(updated);
+                          }}
+                        />
+                      )}
                     </div>
                     <Button
                       onClick={() => handleUpdateSetting(setting.setting_key, setting.setting_value)}
@@ -281,6 +354,154 @@ export default function AdminContent() {
             </Card>
           </TabsContent>
         </Tabs>
+
+        <Dialog open={editDialog} onOpenChange={setEditDialog}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>
+                {editItem.id ? 'Редактировать' : 'Добавить'}{' '}
+                {editType === 'service' && 'услугу'}
+                {editType === 'pricing' && 'тариф'}
+                {editType === 'gallery' && 'фото'}
+              </DialogTitle>
+            </DialogHeader>
+            
+            <div className="space-y-4">
+              {editType === 'service' && (
+                <>
+                  <div>
+                    <Label>Название услуги</Label>
+                    <Input
+                      value={editItem.title || ''}
+                      onChange={(e) => setEditItem({ ...editItem, title: e.target.value })}
+                      placeholder="Ремонт окон"
+                    />
+                  </div>
+                  <div>
+                    <Label>Описание</Label>
+                    <Textarea
+                      value={editItem.description || ''}
+                      onChange={(e) => setEditItem({ ...editItem, description: e.target.value })}
+                      placeholder="Описание услуги"
+                      rows={3}
+                    />
+                  </div>
+                  <div>
+                    <Label>Цена</Label>
+                    <Input
+                      value={editItem.price || ''}
+                      onChange={(e) => setEditItem({ ...editItem, price: e.target.value })}
+                      placeholder="от 1500 ₽"
+                    />
+                  </div>
+                  <div>
+                    <Label>Иконка (название из lucide-react)</Label>
+                    <Input
+                      value={editItem.icon || ''}
+                      onChange={(e) => setEditItem({ ...editItem, icon: e.target.value })}
+                      placeholder="Wrench"
+                    />
+                  </div>
+                </>
+              )}
+
+              {editType === 'pricing' && (
+                <>
+                  <div>
+                    <Label>Название тарифа</Label>
+                    <Input
+                      value={editItem.name || ''}
+                      onChange={(e) => setEditItem({ ...editItem, name: e.target.value })}
+                      placeholder="Базовый"
+                    />
+                  </div>
+                  <div>
+                    <Label>Описание</Label>
+                    <Input
+                      value={editItem.description || ''}
+                      onChange={(e) => setEditItem({ ...editItem, description: e.target.value })}
+                      placeholder="Для небольших задач"
+                    />
+                  </div>
+                  <div>
+                    <Label>Цена (только число)</Label>
+                    <Input
+                      type="number"
+                      value={editItem.price || ''}
+                      onChange={(e) => setEditItem({ ...editItem, price: e.target.value })}
+                      placeholder="5000"
+                    />
+                  </div>
+                  <div>
+                    <Label>Иконка (название из lucide-react)</Label>
+                    <Input
+                      value={editItem.icon || ''}
+                      onChange={(e) => setEditItem({ ...editItem, icon: e.target.value })}
+                      placeholder="Package"
+                    />
+                  </div>
+                  <div>
+                    <Label>Функции (одна на строку)</Label>
+                    <Textarea
+                      value={Array.isArray(editItem.features) ? editItem.features.join('\n') : ''}
+                      onChange={(e) => setEditItem({ 
+                        ...editItem, 
+                        features: e.target.value.split('\n').filter(f => f.trim()) 
+                      })}
+                      placeholder="Консультация специалиста&#10;Выезд мастера&#10;Гарантия 1 год"
+                      rows={5}
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={editItem.is_popular || false}
+                      onChange={(e) => setEditItem({ ...editItem, is_popular: e.target.checked })}
+                      id="is_popular"
+                      className="w-4 h-4"
+                    />
+                    <Label htmlFor="is_popular">Популярный тариф</Label>
+                  </div>
+                </>
+              )}
+
+              {editType === 'gallery' && (
+                <>
+                  <div>
+                    <Label>URL изображения</Label>
+                    <Input
+                      value={editItem.url || ''}
+                      onChange={(e) => setEditItem({ ...editItem, url: e.target.value })}
+                      placeholder="https://..."
+                    />
+                  </div>
+                  <div>
+                    <Label>Название</Label>
+                    <Input
+                      value={editItem.title || ''}
+                      onChange={(e) => setEditItem({ ...editItem, title: e.target.value })}
+                      placeholder="Название работы"
+                    />
+                  </div>
+                  <div>
+                    <Label>Описание (необязательно)</Label>
+                    <Textarea
+                      value={editItem.description || ''}
+                      onChange={(e) => setEditItem({ ...editItem, description: e.target.value })}
+                      placeholder="Описание работы"
+                      rows={2}
+                    />
+                  </div>
+                </>
+              )}
+            </div>
+
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setEditDialog(false)}>Отмена</Button>
+              <Button onClick={handleSave}>Сохранить</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

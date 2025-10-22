@@ -18,6 +18,9 @@ import ReviewsSection from "@/components/ReviewsSection";
 import PricingSection from "@/components/PricingSection";
 import { useState, useEffect } from "react";
 
+const CONTENT_API = 'https://functions.poehali.dev/0834ee0a-3d60-4224-ab11-b39d167e2371';
+const REVIEWS_API = 'https://functions.poehali.dev/afe6fe8d-2c7e-4d6c-8f95-7f955f5bfb7e';
+
 const Index = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -28,6 +31,12 @@ const Index = () => {
   const [timeLeft, setTimeLeft] = useState(3600);
   const [showPopup, setShowPopup] = useState(false);
   const [popupFormData, setPopupFormData] = useState({ name: "", phone: "" });
+  
+  const [services, setServices] = useState<any[]>([]);
+  const [benefits, setBenefits] = useState<any[]>([]);
+  const [gallery, setGallery] = useState<any[]>([]);
+  const [reviews, setReviews] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -41,6 +50,35 @@ const Index = () => {
       setShowPopup(true);
     }, 30000);
     return () => clearTimeout(popupTimer);
+  }, []);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const [servicesRes, benefitsRes, galleryRes, reviewsRes] = await Promise.all([
+          fetch(`${CONTENT_API}?type=services`),
+          fetch(`${CONTENT_API}?type=benefits`),
+          fetch(`${CONTENT_API}?type=gallery`),
+          fetch(REVIEWS_API)
+        ]);
+        
+        const servicesData = await servicesRes.json();
+        const benefitsData = await benefitsRes.json();
+        const galleryData = await galleryRes.json();
+        const reviewsData = await reviewsRes.json();
+        
+        setServices(servicesData);
+        setBenefits(benefitsData);
+        setGallery(galleryData);
+        setReviews(reviewsData.reviews || []);
+      } catch (error) {
+        console.error('Ошибка загрузки контента:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchContent();
   }, []);
 
   const formatTime = (seconds: number) => {
@@ -63,100 +101,13 @@ const Index = () => {
     setShowPopup(false);
   };
 
-  const services = [
-    {
-      icon: "Wrench",
-      title: "Ремонт фурнитуры",
-      description: "Замена и регулировка оконной фурнитуры любой сложности. Быстро восстановим работу ручек, петель и замков.",
-      price: "от 500 ₽"
-    },
-    {
-      icon: "Wind",
-      title: "Устранение продувания",
-      description: "Профессиональная регулировка створок и замена уплотнителей. Ваши окна станут герметичными и теплыми.",
-      price: "от 800 ₽"
-    },
-    {
-      icon: "Droplets",
-      title: "Замена стеклопакетов",
-      description: "Установка новых энергоэффективных стеклопакетов. Решим проблему запотевания и повысим звукоизоляцию.",
-      price: "от 2500 ₽"
-    },
-    {
-      icon: "Shield",
-      title: "Гарантийное обслуживание",
-      description: "Плановое ТО и устранение заводских дефектов. Продлеваем срок службы ваших окон на годы.",
-      price: "от 1000 ₽"
-    },
-    {
-      icon: "Settings",
-      title: "Регулировка окон",
-      description: "Точная настройка механизмов открывания и закрывания. Окна снова будут работать как новые.",
-      price: "от 600 ₽"
-    },
-    {
-      icon: "Package",
-      title: "Комплексный ремонт",
-      description: "Полная диагностика и устранение всех неисправностей. От мелкого ремонта до капитального восстановления.",
-      price: "от 1500 ₽"
-    }
-  ];
 
-  const benefits = [
-    {
-      icon: "Clock",
-      title: "Быстрый выезд",
-      description: "Выезжаем на следующий день после заявки"
-    },
-    {
-      icon: "Award",
-      title: "Опыт 15 лет",
-      description: "Более 10 000 отремонтированных окон"
-    },
-    {
-      icon: "CheckCircle",
-      title: "Гарантия качества",
-      description: "Официальная гарантия на все работы до 2 лет"
-    },
-    {
-      icon: "DollarSign",
-      title: "Честные цены",
-      description: "Фиксированная стоимость без скрытых доплат"
-    }
-  ];
 
-  const testimonials = [
-    {
-      name: "Мария Петрова",
-      text: "Отличная работа! Окна перестали продувать, в квартире стало намного теплее. Мастер приехал на следующий день, работал аккуратно.",
-      rating: 5
-    },
-    {
-      name: "Сергей Иванов",
-      text: "Заменили стеклопакет за 2 часа. Цена фиксированная, без накруток. Очень доволен качеством и сервисом!",
-      rating: 5
-    },
-    {
-      name: "Елена Смирнова",
-      text: "Быстро отремонтировали фурнитуру. Окна снова закрываются идеально. Спасибо за профессионализм!",
-      rating: 5
-    }
-  ];
 
-  const gallery = [
-    {
-      url: "https://cdn.poehali.dev/projects/2f1f8425-5be9-4c47-ae8b-739ef6314b65/files/0c645a17-1f9e-4386-98b3-638136b20256.jpg",
-      title: "До и после ремонта"
-    },
-    {
-      url: "https://cdn.poehali.dev/projects/2f1f8425-5be9-4c47-ae8b-739ef6314b65/files/4b6ee88a-5d9c-4661-b110-bf00616bc1f0.jpg",
-      title: "Замена фурнитуры"
-    },
-    {
-      url: "https://cdn.poehali.dev/projects/2f1f8425-5be9-4c47-ae8b-739ef6314b65/files/d4cb5b72-ef31-460f-8387-cc5842a640ec.jpg",
-      title: "Довольный клиент"
-    }
-  ];
+
+
+
+
 
   return (
     <div className="min-h-screen">
@@ -167,9 +118,11 @@ const Index = () => {
               🎁 Специальное предложение!
             </DialogTitle>
             <DialogDescription className="text-center">
-              <Badge variant="destructive" className="mb-4 text-base px-4 py-2">
-                🔥 СКИДКА 30% только сейчас!
-              </Badge>
+              <div className="flex justify-center mt-2">
+                <Badge variant="destructive" className="mb-4 text-base px-4 py-2">
+                  🔥 СКИДКА 30% только сейчас!
+                </Badge>
+              </div>
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
@@ -417,6 +370,26 @@ const Index = () => {
             </div>
           </div>
 
+          {loading ? (
+            <div className="text-center py-12">
+              <Icon name="Loader2" size={48} className="animate-spin mx-auto text-primary mb-4" />
+              <p className="text-muted-foreground">Загрузка услуг...</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
+              {services.map((service, index) => (
+                <Card key={service.id || index} className="hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6">
+                    <Icon name={service.icon} className="text-primary mb-4" size={48} />
+                    <h3 className="text-xl font-bold mb-2 text-secondary">{service.title}</h3>
+                    <p className="text-muted-foreground mb-4">{service.description}</p>
+                    <p className="text-2xl font-bold text-primary">{service.price}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 max-w-6xl mx-auto">
             {[
               { icon: 'Settings', title: 'Установка\nаксессуаров' },
@@ -527,25 +500,39 @@ const Index = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-secondary">Отзывы клиентов</h2>
           <p className="text-center text-muted-foreground mb-16 text-lg">Более 2000 довольных клиентов</p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <Card 
-                key={index} 
-                className="animate-scale-in border-2"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <CardContent className="pt-6 pb-6">
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Icon key={i} name="Star" className="text-yellow-500 fill-yellow-500" size={20} />
-                    ))}
-                  </div>
-                  <p className="text-muted-foreground mb-4 italic">"{testimonial.text}"</p>
-                  <p className="font-semibold text-secondary">{testimonial.name}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          {loading ? (
+            <div className="text-center py-12">
+              <Icon name="Loader2" size={48} className="animate-spin mx-auto text-primary mb-4" />
+              <p className="text-muted-foreground">Загрузка отзывов...</p>
+            </div>
+          ) : reviews.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {reviews.map((review, index) => (
+                <Card 
+                  key={review.id || index} 
+                  className="animate-scale-in border-2"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <CardContent className="pt-6 pb-6">
+                    <div className="flex gap-1 mb-4">
+                      {[...Array(review.rating)].map((_, i) => (
+                        <Icon key={i} name="Star" className="text-yellow-500 fill-yellow-500" size={20} />
+                      ))}
+                    </div>
+                    <p className="text-muted-foreground mb-4 italic">"{review.review_text}"</p>
+                    <p className="font-semibold text-secondary">{review.author_name}</p>
+                    {review.service_type && (
+                      <p className="text-sm text-muted-foreground mt-2">{review.service_type}</p>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground text-lg">Отзывы скоро появятся</p>
+            </div>
+          )}
         </div>
       </section>
 
@@ -566,7 +553,28 @@ const Index = () => {
             Эта заслуга опытных специалистов, налаженного сервиса и отличного оборудования
           </p>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto mb-12">
+          {loading ? (
+            <div className="text-center py-12">
+              <Icon name="Loader2" size={48} className="animate-spin mx-auto text-primary mb-4" />
+              <p className="text-muted-foreground">Загрузка...</p>
+            </div>
+          ) : benefits.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto mb-12">
+              {benefits.map((benefit, index) => (
+                <div key={benefit.id || index} className="text-center animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
+                  <div className="relative w-32 h-32 mx-auto mb-4">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-full opacity-10"></div>
+                    <div className="absolute inset-2 bg-white rounded-full shadow-lg flex items-center justify-center">
+                      <Icon name={benefit.icon} className="text-primary" size={48} />
+                    </div>
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-secondary mb-2">{benefit.title}</h3>
+                  <p className="text-base md:text-lg text-muted-foreground">{benefit.description}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto mb-12">
             <div className="text-center animate-fade-in">
               <div className="relative w-32 h-32 mx-auto mb-4">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-full opacity-10"></div>
@@ -650,6 +658,12 @@ const Index = () => {
                 <div className="absolute inset-2 bg-white rounded-full shadow-lg flex items-center justify-center">
                   <Icon name="Percent" className="text-primary" size={48} />
                 </div>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-secondary mb-2">Скидки</h3>
+              <p className="text-xl md:text-2xl font-semibold text-primary">до 30%</p>
+            </div>
+          </div>
+          )}
               </div>
               <h3 className="text-2xl md:text-3xl font-bold text-secondary mb-2">Скидки</h3>
               <p className="text-xl md:text-2xl font-semibold text-primary">и акции</p>

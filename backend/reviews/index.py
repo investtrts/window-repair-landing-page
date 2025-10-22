@@ -80,12 +80,44 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             review_text = body_data.get('review_text', '').strip()
             service_type = body_data.get('service_type', '').strip()
             
-            if not author_name or not review_text or not (1 <= rating <= 5):
+            if not author_name:
                 return {
                     'statusCode': 400,
                     'headers': headers,
                     'isBase64Encoded': False,
-                    'body': json.dumps({'error': 'Invalid data'}, ensure_ascii=False)
+                    'body': json.dumps({'error': 'Имя обязательно'}, ensure_ascii=False)
+                }
+            
+            if len(author_name) > 100:
+                return {
+                    'statusCode': 400,
+                    'headers': headers,
+                    'isBase64Encoded': False,
+                    'body': json.dumps({'error': 'Имя слишком длинное'}, ensure_ascii=False)
+                }
+            
+            if not review_text:
+                return {
+                    'statusCode': 400,
+                    'headers': headers,
+                    'isBase64Encoded': False,
+                    'body': json.dumps({'error': 'Текст отзыва обязателен'}, ensure_ascii=False)
+                }
+            
+            if len(review_text) < 10:
+                return {
+                    'statusCode': 400,
+                    'headers': headers,
+                    'isBase64Encoded': False,
+                    'body': json.dumps({'error': 'Отзыв слишком короткий (минимум 10 символов)'}, ensure_ascii=False)
+                }
+            
+            if not (1 <= rating <= 5):
+                return {
+                    'statusCode': 400,
+                    'headers': headers,
+                    'isBase64Encoded': False,
+                    'body': json.dumps({'error': 'Оценка должна быть от 1 до 5'}, ensure_ascii=False)
                 }
             
             cur.execute("""

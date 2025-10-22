@@ -83,11 +83,25 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             body_data = json.loads(event.get('body', '{}'))
             
             if content_type == 'services':
+                if not all(k in body_data for k in ['icon', 'title', 'description', 'price']):
+                    return {
+                        'statusCode': 400,
+                        'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                        'body': json.dumps({'error': 'Обязательные поля: icon, title, description, price'}),
+                        'isBase64Encoded': False
+                    }
                 cur.execute(
                     "INSERT INTO services (icon, title, description, price, display_order) VALUES (%s, %s, %s, %s, %s) RETURNING id",
                     (body_data['icon'], body_data['title'], body_data['description'], body_data['price'], body_data.get('display_order', 0))
                 )
             elif content_type == 'pricing':
+                if not all(k in body_data for k in ['name', 'description', 'price', 'icon', 'features']):
+                    return {
+                        'statusCode': 400,
+                        'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                        'body': json.dumps({'error': 'Обязательные поля: name, description, price, icon, features'}),
+                        'isBase64Encoded': False
+                    }
                 cur.execute(
                     "INSERT INTO pricing_tiers (name, description, price, icon, is_popular, features, display_order) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id",
                     (body_data['name'], body_data['description'], body_data['price'], body_data['icon'], 
@@ -99,6 +113,13 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     (body_data['name'], body_data['price'], body_data.get('display_order', 0))
                 )
             elif content_type == 'gallery':
+                if not all(k in body_data for k in ['url', 'title']):
+                    return {
+                        'statusCode': 400,
+                        'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                        'body': json.dumps({'error': 'Обязательные поля: url, title'}),
+                        'isBase64Encoded': False
+                    }
                 cur.execute(
                     "INSERT INTO gallery (url, title, description, display_order) VALUES (%s, %s, %s, %s) RETURNING id",
                     (body_data['url'], body_data['title'], body_data.get('description', ''), body_data.get('display_order', 0))

@@ -25,6 +25,8 @@ export default function Admin() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(false);
   const [adminToken] = useState('admin123');
+  const [filterStatus, setFilterStatus] = useState<'all' | 'approved' | 'pending'>('all');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const REVIEWS_API = 'https://functions.poehali.dev/afe6fe8d-2c7e-4d6c-8f95-7f955f5bfb7e';
 
@@ -176,22 +178,45 @@ export default function Admin() {
           </div>
         </div>
 
-        <div className="mb-6 flex justify-between items-center">
-          <div className="flex gap-4">
-            <Badge variant="outline" className="text-base px-4 py-2">
-              Всего: {reviews.length}
-            </Badge>
-            <Badge variant="default" className="text-base px-4 py-2 bg-green-600">
-              Одобрено: {reviews.filter(r => r.is_approved).length}
-            </Badge>
-            <Badge variant="destructive" className="text-base px-4 py-2">
-              На модерации: {reviews.filter(r => !r.is_approved).length}
-            </Badge>
+        <div className="mb-6 space-y-4">
+          <div className="flex flex-wrap gap-4 items-center justify-between">
+            <div className="flex gap-2">
+              <Button 
+                onClick={() => setFilterStatus('all')} 
+                variant={filterStatus === 'all' ? 'default' : 'outline'}
+                size="sm"
+              >
+                Все ({reviews.length})
+              </Button>
+              <Button 
+                onClick={() => setFilterStatus('approved')} 
+                variant={filterStatus === 'approved' ? 'default' : 'outline'}
+                size="sm"
+                className={filterStatus === 'approved' ? 'bg-green-600 hover:bg-green-700' : ''}
+              >
+                Одобрено ({reviews.filter(r => r.is_approved).length})
+              </Button>
+              <Button 
+                onClick={() => setFilterStatus('pending')} 
+                variant={filterStatus === 'pending' ? 'destructive' : 'outline'}
+                size="sm"
+              >
+                На модерации ({reviews.filter(r => !r.is_approved).length})
+              </Button>
+            </div>
+            <Button onClick={fetchAllReviews} variant="outline" disabled={loading} size="sm">
+              <Icon name="RefreshCw" size={18} className={loading ? "animate-spin mr-2" : "mr-2"} />
+              Обновить
+            </Button>
           </div>
-          <Button onClick={fetchAllReviews} variant="outline" disabled={loading}>
-            <Icon name="RefreshCw" size={18} className={loading ? "animate-spin mr-2" : "mr-2"} />
-            Обновить
-          </Button>
+          <div className="max-w-md">
+            <Input 
+              placeholder="Поиск по имени или тексту отзыва..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full"
+            />
+          </div>
         </div>
 
         {loading ? (
@@ -208,7 +233,22 @@ export default function Admin() {
           </Card>
         ) : (
           <div className="space-y-4">
-            {reviews.map((review) => (
+            {reviews
+              .filter(review => {
+                if (filterStatus === 'approved') return review.is_approved;
+                if (filterStatus === 'pending') return !review.is_approved;
+                return true;
+              })
+              .filter(review => {
+                if (!searchQuery) return true;
+                const query = searchQuery.toLowerCase();
+                return (
+                  review.author_name.toLowerCase().includes(query) ||
+                  review.review_text.toLowerCase().includes(query) ||
+                  (review.service_type && review.service_type.toLowerCase().includes(query))
+                );
+              })
+              .map((review) => (
               <Card key={review.id} className={review.is_approved ? 'border-green-200' : 'border-orange-200'}>
                 <CardContent className="p-6">
                   <div className="flex justify-between items-start mb-4">

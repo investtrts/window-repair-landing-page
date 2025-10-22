@@ -664,11 +664,6 @@ const Index = () => {
             </div>
           </div>
           )}
-              </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-secondary mb-2">Скидки</h3>
-              <p className="text-xl md:text-2xl font-semibold text-primary">и акции</p>
-            </div>
-          </div>
         </div>
       </section>
 

@@ -1,0 +1,99 @@
+# .htaccess для корневой папки сайта (public_html/)
+# Для React SPA приложения
+
+# Включение модуля перезаписи URL
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Не трогаем существующие файлы
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  
+  # Не трогаем API запросы
+  RewriteCond %{REQUEST_URI} !^/api/
+  
+  # Все остальные запросы направляем на index.html
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# Включение сжатия для ускорения загрузки
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# Настройка кэширования для статических файлов
+<IfModule mod_expires.c>
+  ExpiresActive On
+  
+  # Изображения кэшируем на 1 год
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  
+  # CSS и JavaScript кэшируем на 1 месяц
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+  
+  # HTML не кэшируем (всегда свежий)
+  ExpiresByType text/html "access plus 0 seconds"
+  
+  # Шрифты кэшируем на 1 год
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType application/font-woff "access plus 1 year"
+  ExpiresByType application/font-woff2 "access plus 1 year"
+</IfModule>
+
+# Заголовки кэша
+<IfModule mod_headers.c>
+  # Для HTML - без кэша
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+  
+  # Для статики - с кэшем
+  <FilesMatch "\.(js|css|jpg|jpeg|png|gif|webp|svg|woff|woff2)$">
+    Header set Cache-Control "public, max-age=31536000"
+  </FilesMatch>
+</IfModule>
+
+# Безопасность - скрываем версию сервера
+ServerSignature Off
+
+# Защита от hotlinking изображений (опционально)
+# RewriteCond %{HTTP_REFERER} !^$
+# RewriteCond %{HTTP_REFERER} !^https?://вашдомен\.ru [NC]
+# RewriteRule \.(jpg|jpeg|png|gif|webp)$ - [F,L]
+
+# Кодировка по умолчанию
+AddDefaultCharset UTF-8
+
+# Индексные файлы
+DirectoryIndex index.html index.php
+
+# Запрет показа содержимого директорий
+Options -Indexes
+
+# Защита от XSS
+<IfModule mod_headers.c>
+  Header set X-XSS-Protection "1; mode=block"
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>

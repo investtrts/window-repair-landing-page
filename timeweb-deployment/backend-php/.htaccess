@@ -1,0 +1,22 @@
+# Защита конфигурационного файла
+<Files "config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Защита лог-файлов
+<Files "*.log">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# PHP настройки
+php_flag display_errors off
+php_flag log_errors on
+php_value error_log error.log
+
+# Разрешить только GET и POST запросы
+<LimitExcept GET POST OPTIONS>
+    Order Allow,Deny
+    Deny from all
+</LimitExcept>

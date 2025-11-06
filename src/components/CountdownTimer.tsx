@@ -61,81 +61,81 @@ export default function CountdownTimer({ onActionClick }: CountdownTimerProps) {
     <Card className="border-4 border-destructive/30 bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 shadow-2xl overflow-hidden relative">
       <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 animate-pulse" />
       
-      <CardContent className="p-6 md:p-8">
-        <div className="text-center space-y-6">
+      <CardContent className="p-4 sm:p-5 lg:p-6">
+        <div className="text-center space-y-4 lg:space-y-5">
           <div className="space-y-2">
-            <Badge variant="destructive" className="text-sm md:text-base px-4 py-2 font-bold animate-pulse">
-              <Icon name="Zap" size={18} className="inline mr-2" />
+            <Badge variant="destructive" className="text-xs sm:text-sm px-3 py-1.5 font-bold animate-pulse">
+              <Icon name="Zap" size={16} className="inline mr-1.5" />
               СРОЧНАЯ АКЦИЯ
             </Badge>
             
-            <h3 className="text-2xl md:text-4xl font-extrabold text-secondary">
-              Скидка 20% на ремонт окон
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-secondary leading-tight">
+              Скидка 20%<br className="sm:hidden" /> на ремонт окон
             </h3>
-            <p className="text-base md:text-lg text-muted-foreground font-medium">
+            <p className="text-sm lg:text-base text-muted-foreground font-medium">
               Акция заканчивается через:
             </p>
           </div>
 
-          <div className="flex justify-center gap-1 sm:gap-2 md:gap-4">
-            <div className={`bg-gradient-to-br from-white to-red-50 rounded-xl md:rounded-2xl p-2 sm:p-3 md:p-6 shadow-xl border-2 md:border-3 border-destructive/30 min-w-[60px] sm:min-w-[70px] md:min-w-[110px] transform transition-all ${isPulsing ? 'animate-pulse scale-105' : ''}`}>
-              <div className="text-2xl sm:text-3xl md:text-6xl font-extrabold text-destructive">
+          <div className="flex justify-center gap-1.5 sm:gap-2">
+            <div className={`bg-gradient-to-br from-white to-red-50 rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 shadow-lg border-2 border-destructive/30 w-[70px] sm:w-[85px] lg:w-[95px] transform transition-all ${isPulsing ? 'animate-pulse scale-105' : ''}`}>
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-destructive">
                 {formatNumber(hours)}
               </div>
-              <div className="text-[10px] sm:text-xs md:text-sm text-muted-foreground font-bold mt-0.5 sm:mt-1 md:mt-2 uppercase tracking-wider">
+              <div className="text-[9px] sm:text-[10px] lg:text-xs text-muted-foreground font-bold mt-0.5 sm:mt-1 uppercase tracking-wider">
                 часов
               </div>
             </div>
 
-            <div className="flex items-center text-2xl sm:text-3xl md:text-6xl font-extrabold text-destructive animate-pulse">
+            <div className="flex items-center text-xl sm:text-2xl lg:text-3xl font-extrabold text-destructive animate-pulse">
               :
             </div>
 
-            <div className={`bg-gradient-to-br from-white to-orange-50 rounded-xl md:rounded-2xl p-2 sm:p-3 md:p-6 shadow-xl border-2 md:border-3 border-destructive/30 min-w-[60px] sm:min-w-[70px] md:min-w-[110px] transform transition-all ${isPulsing ? 'animate-pulse scale-105' : ''}`}>
-              <div className="text-2xl sm:text-3xl md:text-6xl font-extrabold text-destructive">
+            <div className={`bg-gradient-to-br from-white to-orange-50 rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 shadow-lg border-2 border-destructive/30 w-[70px] sm:w-[85px] lg:w-[95px] transform transition-all ${isPulsing ? 'animate-pulse scale-105' : ''}`}>
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-destructive">
                 {formatNumber(minutes)}
               </div>
-              <div className="text-[10px] sm:text-xs md:text-sm text-muted-foreground font-bold mt-0.5 sm:mt-1 md:mt-2 uppercase tracking-wider">
+              <div className="text-[9px] sm:text-[10px] lg:text-xs text-muted-foreground font-bold mt-0.5 sm:mt-1 uppercase tracking-wider">
                 минут
               </div>
             </div>
 
-            <div className="flex items-center text-2xl sm:text-3xl md:text-6xl font-extrabold text-destructive animate-pulse">
+            <div className="flex items-center text-xl sm:text-2xl lg:text-3xl font-extrabold text-destructive animate-pulse">
               :
             </div>
 
-            <div className={`bg-gradient-to-br from-white to-yellow-50 rounded-xl md:rounded-2xl p-2 sm:p-3 md:p-6 shadow-xl border-2 md:border-3 border-destructive/30 min-w-[60px] sm:min-w-[70px] md:min-w-[110px] transform transition-all ${isPulsing ? 'animate-pulse scale-105' : ''}`}>
-              <div className="text-2xl sm:text-3xl md:text-6xl font-extrabold text-destructive animate-pulse">
+            <div className={`bg-gradient-to-br from-white to-yellow-50 rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 shadow-lg border-2 border-destructive/30 w-[70px] sm:w-[85px] lg:w-[95px] transform transition-all ${isPulsing ? 'animate-pulse scale-105' : ''}`}>
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-destructive animate-pulse">
                 {formatNumber(seconds)}
               </div>
-              <div className="text-[10px] sm:text-xs md:text-sm text-muted-foreground font-bold mt-0.5 sm:mt-1 md:mt-2 uppercase tracking-wider">
+              <div className="text-[9px] sm:text-[10px] lg:text-xs text-muted-foreground font-bold mt-0.5 sm:mt-1 uppercase tracking-wider">
                 секунд
               </div>
             </div>
           </div>
 
-          <div className="space-y-4 pt-2">
-            <div className="bg-white/80 rounded-xl p-4 space-y-2 border-2 border-orange-200">
-              <div className="flex items-center justify-center gap-2 text-lg md:text-xl font-bold text-secondary">
-                <Icon name="Gift" size={24} className="text-destructive" />
-                Экономия до 3 000 ₽
+          <div className="space-y-3 pt-2">
+            <div className="bg-white/80 rounded-lg sm:rounded-xl p-3 sm:p-4 space-y-1.5 border-2 border-orange-200">
+              <div className="flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-base lg:text-lg font-bold text-secondary">
+                <Icon name="Gift" size={18} className="text-destructive flex-shrink-0" />
+                <span>Экономия до 3 000 ₽</span>
               </div>
-              <div className="flex items-center justify-center gap-2 text-base md:text-lg font-semibold text-green-600">
-                <Icon name="CheckCircle2" size={20} />
-                + Бесплатный выезд мастера
+              <div className="flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm lg:text-base font-semibold text-green-600">
+                <Icon name="CheckCircle2" size={16} className="flex-shrink-0" />
+                <span>+ Бесплатный выезд</span>
               </div>
             </div>
 
             <Button 
               size="lg" 
-              className="w-full md:w-auto text-base md:text-lg font-bold px-8 py-6 bg-destructive hover:bg-destructive/90 shadow-xl transform transition-all hover:scale-105"
+              className="w-full text-sm sm:text-base font-bold px-6 py-5 bg-destructive hover:bg-destructive/90 shadow-xl transform transition-all hover:scale-105"
               onClick={handleActionClick}
             >
-              <Icon name="Gift" size={22} className="mr-2" />
+              <Icon name="Gift" size={18} className="mr-2" />
               Успеть получить скидку
             </Button>
 
-            <p className="text-xs md:text-sm text-muted-foreground italic">
+            <p className="text-[10px] sm:text-xs text-muted-foreground italic leading-tight">
               ⚠️ После окончания таймера цены вернутся к стандартным
             </p>
           </div>

@@ -186,7 +186,7 @@ const Index = () => {
           }}
         />
         
-        <div className="absolute top-24 right-4 z-20 animate-fade-in max-w-xs">
+        <div className="absolute top-24 right-4 lg:right-8 z-20 animate-fade-in w-[320px] sm:w-[340px] md:w-[380px] lg:w-[420px] hidden sm:block">
           <CountdownTimer onActionClick={() => setShowPopup(true)} />
         </div>
 

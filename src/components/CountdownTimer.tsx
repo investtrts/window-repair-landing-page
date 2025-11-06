@@ -4,7 +4,11 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 
-export default function CountdownTimer() {
+interface CountdownTimerProps {
+  onActionClick?: () => void;
+}
+
+export default function CountdownTimer({ onActionClick }: CountdownTimerProps) {
   const [timeLeft, setTimeLeft] = useState(7200);
   const [isPulsing, setIsPulsing] = useState(false);
 
@@ -47,8 +51,10 @@ export default function CountdownTimer() {
 
   const formatNumber = (num: number) => String(num).padStart(2, '0');
 
-  const handleCallClick = () => {
-    window.location.href = 'tel:+79999999999';
+  const handleActionClick = () => {
+    if (onActionClick) {
+      onActionClick();
+    }
   };
 
   return (
@@ -123,9 +129,9 @@ export default function CountdownTimer() {
             <Button 
               size="lg" 
               className="w-full md:w-auto text-base md:text-lg font-bold px-8 py-6 bg-destructive hover:bg-destructive/90 shadow-xl transform transition-all hover:scale-105"
-              onClick={handleCallClick}
+              onClick={handleActionClick}
             >
-              <Icon name="Phone" size={22} className="mr-2" />
+              <Icon name="Gift" size={22} className="mr-2" />
               Успеть получить скидку
             </Button>
 

@@ -187,7 +187,7 @@ const Index = () => {
         />
         
         <div className="absolute top-24 right-4 z-20 animate-fade-in max-w-xs">
-          <CountdownTimer />
+          <CountdownTimer onActionClick={() => setShowPopup(true)} />
         </div>
 
         <div className="relative z-10 container mx-auto px-4 text-center animate-fade-in">
